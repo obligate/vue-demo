@@ -1,0 +1,17 @@
+html,body{
+    margin: 0;
+    padding:0;
+
+   
+    li{
+        font-size: 12px;
+        line-height: 30px;
+    }
+    .box{
+    // 默认情况下，webpack 无法处理 css 文件中 url地址，不管是图片还是字体库，只要是url地址，都处理不了
+    // npm i url-loader  file-loader -D
+    background: url('../images/世界地图.jpg');
+    background-size: cover;
+    height: 200px;
+    }
+}

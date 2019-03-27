@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--  父组件向子组件 传递方法，使用的是事件绑定机制 v-on: ,当我们自定义了一个时间属性之后，那么子组件就能够，通过某些方式，来调用传递进去的这个方法了 -->
+       <com2 @func="show"></com2>
+    </div>
+    <template id="tmp1">
+        <div>
+            <h1>这是子组件</h1>
+            <input type="button" value="这是子组件中的按钮，点击它，触发父组件传递过来的fun方法" @click="myclick">
+        </div>
+    </template>
+    <script>
+       // 定义了一个字面量类型的 组件模板对象
+       var com2 = {
+           template:'#tmp1',
+           data(){
+               return {
+                   sonmsg:{name:'小头儿子',age:6}
+               }
+           },
+           methods:{
+            myclick(){
+                // 当点击子组件的按钮的时候，如何拿到父组件传递过来的 func 方法并调用它？
+                // emit 触发，调用，发射
+                this.$emit('func',this.sonmsg)
+            }
+           }
+       };
+
+        var vm = new Vue({
+            el: '#app', 
+            data:{ 
+                datmsgFromSon:null
+            },
+            methods:{   
+                show(data){
+                    this.datmsgFromSon = data;
+                    console.log('调用了父组件身上的 show 方法=========' + data);
+                }
+            },
+            components:{
+                com2 // 类似 com2:com2
+            }
+        });
+    </script>
+</body>
+</html>
